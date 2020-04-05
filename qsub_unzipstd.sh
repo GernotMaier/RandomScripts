@@ -17,10 +17,17 @@ then
    exit
 fi
 
+rm -f $ODIR/$FFIL.zst.log
+touch $ODIR/$FFIL.zst.log
+echo "Data directory: $DDIR" >> $ODIR/$FFIL.zst.log
+echo "File: $FFIL" >> $ODIR/$FFIL.zst.log
+echo "Output: $ODIR" >> $ODIR/$FFIL.zst.log
+
 if [ -e $DDIR/$FFIL.bz2 ]
 then
-   cp -v $DDIR/$FFIL.bz2 $SDIR/
+   cp -v $DDIR/$FFIL.bz2 $SDIR/ >> $ODIR/$FFIL.zst.log
    # calculate md5sum
+   rm -f $ODIR/$FFIL.md5sum
    md5sum $SDIR/$FFIL.bz2 > $ODIR/$FFIL.md5sum
 
    # bunzip decompress
@@ -30,5 +37,7 @@ then
    /afs/ifh.de/group/cta/VERITAS/software/bin/zstd -vv -f $SDIR/${FFIL} $SDIR/$FFIL.zst
 
    # cp to required output directory
-   cp -v $SDIR/$FFIL.zst $ODIR/$FFIL.zst
+   cp -v -f $SDIR/$FFIL.zst $ODIR/$FFIL.zst
+else
+   echo "File $DDIR/$FFIL.bz2 not found" >> $ODIR/$FFIL.zst.log
 fi
