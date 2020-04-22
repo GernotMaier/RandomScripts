@@ -11,7 +11,7 @@ then
    exit
 fi
 
-LLT=`qstat | grep maierg |  grep $1 | awk '{print $1; }' | sort -r`
+LLT=`qstat | grep maierg |  grep $1 | awk '{print $1; }' | sort -r | sort -u`
 
 # get a unique list
 # LLT=$(echo $LLLT | tr ' ' '\n' | sort -nu) 
