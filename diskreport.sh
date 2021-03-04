@@ -10,13 +10,13 @@ if [[ $# < 1 ]]; then
     exit
 fi
 
-header=$( lfs quota -h -g ${1} /lustre/fs18 | sed -n 2p)
+header=$( lfs quota -h -g ${1} /lustre/fs22 | sed -n 2p)
 tot_used=0
 tot_quota=0
 
 echo $header
 
-for L in 18 19 20 21 22 23 24
+for L in 20 21 22 23 24
 do
    fs=$( lfs quota -h -g ${1} /lustre/fs${L} | head -n 3 | tail -n 1)
    fs_used=$(echo $fs | awk '{print $2}')
